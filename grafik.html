@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grafik Suhu</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="myChart" width="400" height="200"></canvas>
+
+  <script>
+    // Ambil data dari Firebase Realtime Database (ganti URL dan path sesuai)
+    fetch("https://myapp-b8e6f-default-rtdb.asia-southeast1.firebasedatabase.app/monitoring_tubuh/line1/history.json?orderBy=\"$key\"&limitToLast=20")
+      .then(response => response.json())
+      .then(data => {
+        const labels = [];
+        const values = [];
+
+        for (const key in data) {
+          labels.push(data[key].waktu);
+          values.push(data[key].suhu);
+        }
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Suhu (°C)',
+              data: values,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                title: { display: true, text: 'Waktu' }
+              },
+              y: {
+                title: { display: true, text: 'Suhu (°C)' }
+              }
+            }
+          }
+        });
+      });
+  </script>
+</body>
+</html>
