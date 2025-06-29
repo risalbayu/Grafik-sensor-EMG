@@ -103,7 +103,7 @@
     });
 
     function ambilData() {
-      fetch("https://myapp-b8e6f-default-rtdb.asia-southeast1.firebasedatabase.app/monitoring_tubuh/line1/history.json?orderBy=\"$key\"&limitToLast=30")
+      fetch("https://deteksi-cts-default-rtdb.asia-southeast1.firebasedatabase.app/monitoring_tubuh/line1/history.json?orderBy=\"$key\"&limitToLast=30")
         .then(response => response.json())
         .then(data => {
           const labels = [];
